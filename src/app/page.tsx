@@ -1,6 +1,10 @@
-import { getProfileMetrics } from "~/actions/github";
-
 export default async function HomePage() {
-  const metrics = await getProfileMetrics();
-  return <pre>{JSON.stringify(metrics, null, 2)}</pre>;
+  return (
+    <>
+      <h1>Next.js + TypeScript + Tailwind CSS</h1>
+      <p>
+        Get started by editing <code>pages/index.tsx</code>
+      </p>
+    </>
+  );
 }
