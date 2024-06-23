@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 
 import { cn } from "~/lib/utils";
-import Providers from "./providers";
+import Providers from "~/app/providers";
 
 export const metadata: Metadata = {
   title: "GitRoast",
