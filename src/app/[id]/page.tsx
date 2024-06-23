@@ -1,7 +1,6 @@
-import { getRoast } from "~/actions/roast";
-import Profile from "./_components/profile";
-import GitProfile from "~/components/git-profile";
 import { getProfile } from "~/actions/github";
+import GitProfile from "~/components/git-profile";
+import Profile from "./_components/profile";
 
 export default async function Page({
   params,
@@ -10,8 +9,8 @@ export default async function Page({
     id: string;
   };
 }) {
-  const roastData = await getRoast({ username: params.id });
   const profileData = await getProfile({ username: params.id });
+  // const roastData = await getRoast({ username: params.id });
   return (
     <>
       {/* <pre>{JSON.stringify(roastData, null, 2)}</pre> */}
