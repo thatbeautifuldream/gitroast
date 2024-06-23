@@ -5,6 +5,7 @@ import { streamTextAction } from "~/actions/groq";
 import { useEffect, useState } from "react";
 import { readStreamableValue } from "ai/rsc";
 import { type Profile, getProfile } from "~/actions/github";
+import GradientFillButton from "~/components/gradient-fill-button";
 
 export default function Page({
   params,
@@ -29,7 +30,7 @@ export default function Page({
     <>
       <pre>{JSON.stringify(profile, null, 2)}</pre>
       <div className="space-y-4">
-        <Button
+        <GradientFillButton
           onClick={async () => {
             const result = await streamTextAction({
               profile: profile,
@@ -39,8 +40,11 @@ export default function Page({
           }}
         >
           Roast {profile?.login ?? "this user"}
-        </Button>
-        <pre>{JSON.stringify(generation, null, 2)}</pre>
+        </GradientFillButton>
+        <p
+          className="text-center"
+          dangerouslySetInnerHTML={{ __html: generation }}
+        />
       </div>
     </>
   );
