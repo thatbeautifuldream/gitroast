@@ -1,12 +1,10 @@
 "use client";
 
-import { readStreamableValue } from "ai/rsc";
+import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getProfile, type Profile } from "~/actions/github";
-import { streamTextAction } from "~/actions/groq";
-import { Loader } from "lucide-react";
-// import { saveRoast } from "~/actions/roast";
-import GradientFillButton from "~/components/gradient-fill-button";
+import { findOrGenerateTextAction } from "~/actions/groq";
+import GitProfile from "~/components/git-profile";
 
 export default function Profile({
   params,
@@ -18,14 +16,26 @@ export default function Profile({
   const id = params.id;
   const [profile, setProfile] = useState<Profile | null>(null);
   const [generation, setGeneration] = useState("");
+
   useEffect(() => {
     async function fetchData() {
       const data = await getProfile({ username: id });
-      setProfile(data ?? {});
+      setProfile(data ?? null);
     }
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    fetchData();
+
+    void fetchData();
   }, [id]);
+
+  useEffect(() => {
+    if (profile) {
+      async function generateText() {
+        const result = await findOrGenerateTextAction({ profile });
+        setGeneration(result);
+      }
+
+      void generateText();
+    }
+  }, [profile]);
 
   if (!profile)
     return (
@@ -34,28 +44,9 @@ export default function Profile({
 
   return (
     <>
-      <pre>{JSON.stringify(profile, null, 2)}</pre>
+      <GitProfile profile={profile} />
       <div className="space-y-4">
-        <GradientFillButton
-          onClick={async () => {
-            const result = await streamTextAction({
-              profile: profile,
-            });
-            for await (const delta of readStreamableValue(result))
-              setGeneration(delta ?? "");
-
-            // await saveRoast({
-            //   username: profile?.login ?? "",
-            //   message: generation,
-            // });
-          }}
-        >
-          Roast {profile?.login ?? "this user"}
-        </GradientFillButton>
-        <p
-          className="text-center"
-          dangerouslySetInnerHTML={{ __html: generation }}
-        />
+        <p className="text-center">{generation}</p>
       </div>
     </>
   );

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { Profile } from "~/actions/github";
 
 export default function GitProfile({ profile }: { profile: Profile }) {
@@ -30,11 +31,40 @@ export default function GitProfile({ profile }: { profile: Profile }) {
           </div>
         </div>
       </div>
+
       <div className="flex flex-col justify-center gap-2 sm:items-center">
         <h1 className="text-lg font-semibold">{profile?.name}</h1>
+        <div className="flex gap-2 sm:items-center">
+          <Link
+            href={profile?.html_url}
+            target="_blank"
+            className="text-sm font-semibold"
+          >
+            @{profile?.login}
+          </Link>
+          {profile?.twitter_username && (
+            <>
+              <span className="text-gray-gray1k text-sm font-normal">·</span>
+              <Link
+                href={`https://x.com/${profile?.twitter_username}`}
+                target="_blank"
+                className="text-sm font-semibold"
+              >
+                @{profile?.twitter_username}
+              </Link>
+            </>
+          )}
+        </div>
         <h2 className="text-gray-gray1k text-sm font-normal sm:text-center">
           {profile?.bio}
         </h2>
+        <div className="flex gap-2 sm:items-center">
+          <h3 className="text-sm font-semibold">{profile?.followers}</h3>
+          <p className="text-gray-gray1k text-sm font-normal">followers</p>
+          <span className="text-gray-gray1k text-sm font-normal">·</span>
+          <h3 className="text-sm font-semibold">{profile?.following}</h3>
+          <p className="text-gray-gray1k text-sm font-normal">following</p>
+        </div>
       </div>
     </div>
   );

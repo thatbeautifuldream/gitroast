@@ -29,6 +29,9 @@ importers:
       '@t3-oss/env-nextjs':
         specifier: ^0.10.1
         version: 0.10.1(typescript@5.4.5)(zod@3.23.8)
+      '@tanstack/react-query':
+        specifier: ^5.48.0
+        version: 5.48.0(react@18.3.1)
       ai:
         specifier: ^3.2.1
         version: 3.2.1(react@18.3.1)(solid-js@1.8.17)(svelte@4.2.18)(vue@3.4.29(typescript@5.4.5))(zod@3.23.8)
@@ -541,6 +544,14 @@ packages:
     peerDependenciesMeta:
       typescript:
         optional: true
+
+  '@tanstack/query-core@5.48.0':
+    resolution: {integrity: sha512-lZAfPPeVIqXCswE9SSbG33B6/91XOWt/Iq41bFeWb/mnHwQSIfFRbkS4bfs+WhIk9abRArF9Id2fp0Mgo+hq6Q==}
+
+  '@tanstack/react-query@5.48.0':
+    resolution: {integrity: sha512-GDExbjYWzvDokyRqMSWXdrPiYpp95Aig0oeMIrxTaruOJJgWiWfUP//OAaowm2RrRkGVsavSZdko/XmIrrV2Nw==}
+    peerDependencies:
+      react: ^18.0.0
 
   '@types/aws-lambda@8.10.140':
     resolution: {integrity: sha512-4Dh3dk2TUcbdfHrX0Al90mNGJDvA9NBiTQPzbrjGi/dLxzKCGOYgT8YQ47jUKNFALkAJAadifq0pzyjIUlhVhg==}
@@ -2742,6 +2753,13 @@ snapshots:
       zod: 3.23.8
     optionalDependencies:
       typescript: 5.4.5
+
+  '@tanstack/query-core@5.48.0': {}
+
+  '@tanstack/react-query@5.48.0(react@18.3.1)':
+    dependencies:
+      '@tanstack/query-core': 5.48.0
+      react: 18.3.1
 
   '@types/aws-lambda@8.10.140': {}
 

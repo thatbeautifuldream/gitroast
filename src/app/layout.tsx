@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 
 import { cn } from "~/lib/utils";
-import Providers from "~/app/providers";
+import Provider from "~/app/provider";
 
 export const metadata: Metadata = {
   title: "GitRoast",
@@ -29,7 +29,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           fontSans.variable,
         )}
       >
-        <Providers>{children}</Providers>
+        <Provider>{children}</Provider>
       </body>
     </html>
   );
