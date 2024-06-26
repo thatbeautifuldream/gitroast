@@ -46,7 +46,9 @@ export default function Profile({
     <>
       <GitProfile profile={profile} />
       <div className="space-y-4">
-        <p className="text-center">{generation}</p>
+        <blockquote className="mt-6 border-l-2 pl-6 italic">
+          {generation}
+        </blockquote>
       </div>
     </>
   );
