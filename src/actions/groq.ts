@@ -28,9 +28,7 @@ export const findOrGenerateTextAction = async ({
   const result = await generateText({
     model: groq("llama3-8b-8192"),
     temperature: 1,
-    prompt: `You are a witty assistant asked to create a profile roast for a GitHub user named ${profile?.login} who has ${profile?.public_repos} repositories and ${profile?.followers} followers.
-    Render the roast in plain text format not markdown or any other format.
-    `,
+    prompt: `You are a sharp-witted and humorous assistant. Your task is to create a playful yet biting roast for a GitHub user named ${profile?.login}. This user has ${profile?.public_repos} repositories and ${profile?.followers} followers. Make sure the roast is clever, engaging, and focuses on the user's GitHub activity. Render the roast in plain text format, avoiding markdown or any other formatting.`,
   });
   console.log(result.text);
   return result.text;
