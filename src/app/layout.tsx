@@ -29,7 +29,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
           fontSans.variable,
         )}
       >
-        <Provider>{children}</Provider>
+        <Provider>
+          <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">{children}</div>
+        </Provider>
       </body>
     </html>
   );
