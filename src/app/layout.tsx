@@ -1,6 +1,6 @@
 import "~/styles/globals.css";
 import type { Metadata } from "next";
-import { Inter as FontSans } from "next/font/google";
+import { Work_Sans as FontSans } from "next/font/google";
 
 import { cn } from "~/lib/utils";
 import Provider from "~/app/provider";
@@ -25,7 +25,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <head />
       <body
         className={cn(
-          "min-h-screen bg-red-50 font-sans antialiased",
+          "bg-bg min-h-screen font-sans antialiased",
           fontSans.variable,
         )}
       >

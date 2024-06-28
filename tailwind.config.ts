@@ -56,27 +56,35 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        main: "#FD9745",
+        overlay: "rgba(0,0,0,0.8)",
+        bg: "#fff4e0",
+        text: "#000",
+        darkBg: "#1D1F27",
+        darkText: "#eeefe9",
+        darkBorder: "#000",
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        base: "0px",
+      },
+      boxShadow: {
+        light: "4px 4px 0px 0px #000",
+        dark: "4px 4px 0px 0px #000",
+      },
+      translate: {
+        boxShadowX: "4px",
+        boxShadowY: "4px",
+        reverseBoxShadowX: "-4px",
+        reverseBoxShadowY: "-4px",
+      },
+      fontWeight: {
+        base: "500",
+        heading: "700",
       },
       keyframes: {
-        buttonheartbeat: {
-          "0%": {
-            "box-shadow": '0 0 0 0 theme("colors.red.500")',
-            transform: "scale(1)",
-          },
-          "50%": {
-            "box-shadow": '0 0 0 7px theme("colors.red.500/0")',
-            transform: "scale(1.05)",
-          },
-          "100%": {
-            "box-shadow": '0 0 0 0 theme("colors.red.500/0")',
-            transform: "scale(1)",
-          },
-        },
         "accordion-down": {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
@@ -87,7 +95,6 @@ const config = {
         },
       },
       animation: {
-        buttonheartbeat: "buttonheartbeat 2s infinite ease-in-out",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
