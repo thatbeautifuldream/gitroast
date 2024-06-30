@@ -19,23 +19,24 @@ export default function Profile({
 
   useEffect(() => {
     async function fetchData() {
-      const data = await getProfile({ username: id });
-      setProfile(data ?? null);
+      const profileData = getProfile({ username: id });
+      const generationData = profileData.then((data) => {
+        if (data) {
+          return findOrGenerateTextAction({ profile: data });
+        }
+        return Promise.resolve("");
+      });
+
+      void Promise.all([profileData, generationData]).then(
+        ([profileResult, generationResult]) => {
+          setProfile(profileResult ?? null);
+          setGeneration(generationResult);
+        },
+      );
     }
 
     void fetchData();
   }, [id]);
-
-  useEffect(() => {
-    if (profile) {
-      async function generateText() {
-        const result = await findOrGenerateTextAction({ profile });
-        setGeneration(result);
-      }
-
-      void generateText();
-    }
-  }, [profile]);
 
   if (!profile)
     return (
