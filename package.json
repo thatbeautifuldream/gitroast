@@ -1,6 +1,6 @@
 {
-  "name": "orpc-nextjs-starter",
-  "version": "1.8.1",
+  "name": "gitroast",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack --port 3000",
@@ -10,6 +10,7 @@
     "type:check": "tsc --noEmit"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.2.0",
     "@orpc/client": "next",
     "@orpc/json-schema": "next",
     "@orpc/openapi": "next",
@@ -21,11 +22,13 @@
     "@types/node": "^22.15.30",
     "@types/react": "^19.1.9",
     "@types/react-dom": "^19.1.7",
+    "husky": "^9.1.7",
     "next": "^15.4.5",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "server-only": "^0.0.1",
     "typescript": "^5.9.2",
+    "ultracite": "5.1.8",
     "zod": "^4.0.17"
   }
 }
