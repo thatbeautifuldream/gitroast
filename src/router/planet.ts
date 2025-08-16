@@ -1,8 +1,12 @@
-import { ORPCError } from '@orpc/server'
-import * as z from 'zod'
-import { authed, pub } from '../orpc'
-import { NewPlanetSchema, PlanetSchema, UpdatePlanetSchema } from '../schemas/planet'
-import { retry } from '@/middlewares/retry'
+import { ORPCError } from '@orpc/server';
+import * as z from 'zod';
+import { retry } from '@/middlewares/retry';
+import { authed, pub } from '../orpc';
+import {
+  NewPlanetSchema,
+  PlanetSchema,
+  UpdatePlanetSchema,
+} from '../schemas/planet';
 
 export const listPlanets = pub
   .use(retry({ times: 3 }))
@@ -16,12 +20,12 @@ export const listPlanets = pub
     z.object({
       limit: z.number().int().min(1).max(100).default(10),
       cursor: z.number().int().min(0).default(0),
-    }),
+    })
   )
   .output(z.array(PlanetSchema))
   .handler(async ({ input, context }) => {
-    return context.db.planets.list(input.limit, input.cursor)
-  })
+    return context.db.planets.list(input.limit, input.cursor);
+  });
 
 export const createPlanet = authed
   .route({
@@ -33,8 +37,8 @@ export const createPlanet = authed
   .input(NewPlanetSchema)
   .output(PlanetSchema)
   .handler(async ({ input, context }) => {
-    return context.db.planets.create(input, context.user)
-  })
+    return context.db.planets.create(input, context.user);
+  });
 
 export const findPlanet = pub
   .use(retry({ times: 3 }))
@@ -47,18 +51,18 @@ export const findPlanet = pub
   .input(
     z.object({
       id: z.number().int().min(1),
-    }),
+    })
   )
   .output(PlanetSchema)
   .handler(async ({ input, context }) => {
-    const planet = await context.db.planets.find(input.id)
+    const planet = await context.db.planets.find(input.id);
 
     if (!planet) {
-      throw new ORPCError('NOT_FOUND', { message: 'Planet not found' })
+      throw new ORPCError('NOT_FOUND', { message: 'Planet not found' });
     }
 
-    return planet
-  })
+    return planet;
+  });
 
 export const updatePlanet = authed
   .route({
@@ -76,7 +80,7 @@ export const updatePlanet = authed
   .input(UpdatePlanetSchema)
   .output(PlanetSchema)
   .handler(async ({ input, context, errors }) => {
-    const planet = await context.db.planets.find(input.id)
+    const planet = await context.db.planets.find(input.id);
 
     if (!planet) {
       /**
@@ -84,7 +88,7 @@ export const updatePlanet = authed
        *
        * {@link https://orpc.unnoq.com/docs/error-handling#type%E2%80%90safe-error-handling}
        */
-      throw errors.NOT_FOUND({ data: { id: input.id } })
+      throw errors.NOT_FOUND({ data: { id: input.id } });
 
       /**
        * 2. Normal Approach
@@ -94,5 +98,5 @@ export const updatePlanet = authed
       // throw new ORPCError('NOT_FOUND', { message: 'Planet not found' })
     }
 
-    return context.db.planets.update(input)
-  })
+    return context.db.planets.update(input);
+  });

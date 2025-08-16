@@ -1,14 +1,14 @@
-import { JSON_SCHEMA_REGISTRY } from '@orpc/zod/zod4'
-import * as z from 'zod'
+import { JSON_SCHEMA_REGISTRY } from '@orpc/zod/zod4';
+import { z } from 'zod';
 
-export type NewUser = z.infer<typeof NewUserSchema>
-export type User = z.infer<typeof UserSchema>
+export type NewUser = z.infer<typeof NewUserSchema>;
+export type User = z.infer<typeof UserSchema>;
 
 export const NewUserSchema = z.object({
   name: z.string(),
   email: z.email(),
   password: z.string(),
-})
+});
 
 JSON_SCHEMA_REGISTRY.add(NewUserSchema, {
   examples: [
@@ -18,13 +18,13 @@ JSON_SCHEMA_REGISTRY.add(NewUserSchema, {
       password: '123456',
     },
   ],
-})
+});
 
 export const UserSchema = z.object({
   id: z.string(),
   name: z.string(),
   email: z.email(),
-})
+});
 
 JSON_SCHEMA_REGISTRY.add(UserSchema, {
   examples: [
@@ -34,4 +34,4 @@ JSON_SCHEMA_REGISTRY.add(UserSchema, {
       email: 'john@doe.com',
     },
   ],
-})
+});

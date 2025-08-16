@@ -1,14 +1,14 @@
-import type { NewPlanet, Planet, UpdatePlanet } from '@/schemas/planet'
-import type { User } from '@/schemas/user'
-import { os } from '@orpc/server'
+import { os } from '@orpc/server';
+import type { NewPlanet, Planet, UpdatePlanet } from '@/schemas/planet';
+import type { User } from '@/schemas/user';
 
 export interface DB {
   planets: {
-    find: (id: number) => Promise<Planet | undefined>
-    list: (limit: number, cursor: number) => Promise<Planet[]>
-    create: (newPlanet: NewPlanet, creator: User) => Promise<Planet>
-    update: (updatePlanet: UpdatePlanet) => Promise<Planet>
-  }
+    find: (id: number) => Promise<Planet | undefined>;
+    list: (limit: number, cursor: number) => Promise<Planet[]>;
+    create: (newPlanet: NewPlanet, creator: User) => Promise<Planet>;
+    update: (updatePlanet: UpdatePlanet) => Promise<Planet>;
+  };
 }
 
 export const dbProviderMiddleware = os
@@ -19,14 +19,14 @@ export const dbProviderMiddleware = os
      * Because it can avoid `createFakeDB` being called when unnecessary.
      * {@link https://orpc.unnoq.com/docs/best-practices/dedupe-middleware}
      */
-    const db: DB = context.db ?? createFakeDB()
+    const db: DB = context.db ?? createFakeDB();
 
     return next({
       context: {
         db,
       },
-    })
-  })
+    });
+  });
 
 const planets: Planet[] = [
   {
@@ -62,20 +62,22 @@ const planets: Planet[] = [
       email: 'john@doe.com',
     },
   },
-]
+];
 
 export function createFakeDB(): DB {
   return {
     planets: {
       find: async (id) => {
-        return planets.find(planet => planet.id === id)
+        return planets.find((planet) => planet.id === id);
       },
       list: async (limit: number, cursor: number) => {
-        return planets.slice(cursor, cursor + limit)
+        return planets.slice(cursor, cursor + limit);
       },
       create: async (newPlanet, creator) => {
-        const id = planets.length + 1
-        const imageUrl = newPlanet.image ? `https://example.com/cdn/${newPlanet.image.name}` : undefined
+        const id = planets.length + 1;
+        const imageUrl = newPlanet.image
+          ? `https://example.com/cdn/${newPlanet.image.name}`
+          : undefined;
 
         const planet: Planet = {
           creator,
@@ -83,27 +85,29 @@ export function createFakeDB(): DB {
           name: newPlanet.name,
           description: newPlanet.description,
           imageUrl,
-        }
+        };
 
-        planets.push(planet)
+        planets.push(planet);
 
-        return planet
+        return planet;
       },
       update: async (planet) => {
-        const index = planets.findIndex(p => p.id === planet.id)
+        const index = planets.findIndex((p) => p.id === planet.id);
 
         if (index === -1) {
-          throw new Error('Planet not found')
+          throw new Error('Planet not found');
         }
 
         planets[index] = {
           ...planets[index],
           ...planet,
-          imageUrl: planet.image ? `https://example.com/cdn/${planet.image.name}` : planets[index].imageUrl,
-        }
+          imageUrl: planet.image
+            ? `https://example.com/cdn/${planet.image.name}`
+            : planets[index].imageUrl,
+        };
 
-        return planets[index]
+        return planets[index];
       },
     },
-  }
+  };
 }

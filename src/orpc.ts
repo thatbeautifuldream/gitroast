@@ -1,6 +1,6 @@
-import { os } from "@orpc/server";
-import { dbProviderMiddleware } from "./middlewares/db";
-import { requiredAuthMiddleware } from "./middlewares/auth";
+import { os } from '@orpc/server';
+import { requiredAuthMiddleware } from './middlewares/auth';
+import { dbProviderMiddleware } from './middlewares/db';
 
 export const pub = os.use(dbProviderMiddleware);
 

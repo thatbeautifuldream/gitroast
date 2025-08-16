@@ -1,5 +1,5 @@
-import type { User } from '@/schemas/user'
-import { ORPCError, os } from '@orpc/server'
+import { ORPCError, os } from '@orpc/server';
+import type { User } from '@/schemas/user';
 
 export const requiredAuthMiddleware = os
   .$context<{ session?: { user?: User } }>()
@@ -9,16 +9,16 @@ export const requiredAuthMiddleware = os
      * Because it can avoid `getSession` being called when unnecessary.
      * {@link https://orpc.unnoq.com/docs/best-practices/dedupe-middleware}
      */
-    const session = context.session ?? await getSession()
+    const session = context.session ?? (await getSession());
 
     if (!session.user) {
-      throw new ORPCError('UNAUTHORIZED')
+      throw new ORPCError('UNAUTHORIZED');
     }
 
     return next({
       context: { user: session.user },
-    })
-  })
+    });
+  });
 
 async function getSession() {
   /**
@@ -31,5 +31,5 @@ async function getSession() {
    * However, this works fine in a local environment.
    */
 
-  return { user: { id: 'unique', name: 'unnoq', email: 'contact@unnoq.com' } }
+  return { user: { id: 'unique', name: 'unnoq', email: 'contact@unnoq.com' } };
 }

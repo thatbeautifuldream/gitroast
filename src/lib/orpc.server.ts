@@ -1,8 +1,8 @@
-import "server-only";
+import 'server-only';
 
-import { router } from "@/router";
-import { createRouterClient } from "@orpc/server";
-import { headers } from "next/headers";
+import { createRouterClient } from '@orpc/server';
+import { headers } from 'next/headers';
+import { router } from '@/router';
 
 /**
  * This is part of the Optimize SSR setup.

@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 export default function ErrorPage({ error }: { error: Error }) {
   return (
@@ -8,5 +8,5 @@ export default function ErrorPage({ error }: { error: Error }) {
         {error.message}
       </h2>
     </div>
-  )
+  );
 }

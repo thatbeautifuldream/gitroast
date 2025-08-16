@@ -1,24 +1,24 @@
-'use client'
+'use client';
 
-import { orpc } from '@/lib/orpc'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { orpc } from '@/lib/orpc';
 
 export function CreatePlanetMutationForm() {
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
   const { mutate } = useMutation(
     orpc.planet.create.mutationOptions({
       onSuccess() {
         queryClient.invalidateQueries({
           queryKey: orpc.planet.key(),
-        })
+        });
       },
       onError(error) {
-        console.error(error)
-        alert(error.message)
+        console.error(error);
+        alert(error.message);
       },
-    }),
-  )
+    })
+  );
 
   return (
     <div>
@@ -26,24 +26,24 @@ export function CreatePlanetMutationForm() {
 
       <form
         onSubmit={(e) => {
-          e.preventDefault()
-          const form = new FormData(e.target as HTMLFormElement)
+          e.preventDefault();
+          const form = new FormData(e.target as HTMLFormElement);
 
-          const name = form.get('name') as string
-          const description
-          = (form.get('description') as string | null) ?? undefined
-          const image = form.get('image') as File
+          const name = form.get('name') as string;
+          const description =
+            (form.get('description') as string | null) ?? undefined;
+          const image = form.get('image') as File;
 
           mutate({
             name,
             description,
             image: image.size > 0 ? image : undefined,
-          })
+          });
         }}
       >
         <label>
           Name
-          <input type="text" name="name" required />
+          <input name="name" required type="text" />
         </label>
         <label>
           Description
@@ -51,10 +51,10 @@ export function CreatePlanetMutationForm() {
         </label>
         <label>
           Image
-          <input type="file" name="image" accept="image/*" />
+          <input accept="image/*" name="image" type="file" />
         </label>
         <button type="submit">Submit</button>
       </form>
     </div>
-  )
+  );
 }
